@@ -1,3 +1,8 @@
+//Пример обобщённого интерфейса
+interface Containment<T> {
+	//Проверка содержимого объекта некоторого класса на наличие указанного элемента
+	boolean contains(T o);
+}
 //Обобщённые типы ограничиваются только теми классами, которые расширяют класс Number
 class NumFns<T extends Number> { 
 	T num;
@@ -77,7 +82,44 @@ class GenMeth {
 	}
 }
 
+class Summation {
+	private int sum;
+//Обобщённый конструктор
+	<T extends Number> Summation(T arg) {
+		sum = 0;
 
+		for(int i=0; i<= arg.intValue(); i++)
+			sum += i;
+	}
+
+	int getSum() {
+		return sum;
+	}
+}
+
+//Реализация обобщённого интерфейса
+class ClassGenInt<T> implements Containment<T> {
+//Класс, реализующий обобщённый интерфейс должен быть также обобщённым
+	T[] arrayRef;
+	ClassGenInt(T[] o) {
+		arrayRef = o;
+	}
+
+	//Реализация метода contains()
+	public boolean contains(T o) {
+		for(T x:arrayRef)
+			if (x.equals(o)) return true;
+		return false;
+	}
+}
+//При реализации обобщённого интерфейса можно ограничить тип данных в объявлении интерфейса:
+//class ClassGenInt2 implements Containment<Integer> {
+//...
+//}
+
+//class ClassGenInt3 <T extends Number> Containment<T> {
+//...
+//}
 class Pr002 {
 	public static void main(String args[]) {
 		NumFns<Integer> iOb = new NumFns<Integer>(5);
@@ -174,5 +216,45 @@ class Pr002 {
 			System.out.println("Массив nums5 совпадает с nums");
 		if(GenMeth.arraysEqual(nums6, nums5))
 			System.out.println("Массив nums6 совпадает с nums");
+
+		//Использование класса Summation с обобщённым конструктором
+		System.out.println();
+		Summation ob = new Summation(4.2);
+		System.out.println("Сумма целых чисел от 0 до 4.2 равна " + ob.getSum());
+
+		System.out.println();
+		Summation ob2 = new Summation(4);
+		System.out.println("Сумма целых чисел от 0 до 4 равна " + ob2.getSum());
+
+		//Демонстрация использования реализации обобщённого интерфейса
+		System.out.println();
+		Integer x10[] = {1,2,3};
+		Double y10[] = {1.0,2.0,3.0};
+
+		ClassGenInt<Integer> ob3 = new ClassGenInt<Integer>(x10);
+
+		if(ob3.contains(2))
+			System.out.println("2 содержится в ob3");
+		else
+			System.out.println("2 не содержится в ob3");
+
+		if(ob3.contains(4))
+			System.out.println("4 содержится в ob3");
+		else
+			System.out.println("4 не содержится в ob3");
+
+		ClassGenInt<Double> ob4 = new ClassGenInt<Double>(y10);
+		
+		if(ob4.contains(2.0))
+			System.out.println("2.0 содержится в ob4");
+		else
+			System.out.println("2.0 не содержится в ob4");
+
+		if(ob4.contains(4.0))
+			System.out.println("4.0 содержится в ob4");
+		else
+			System.out.println("4.0 не содержится в ob4");
+
+
 	}
 }
