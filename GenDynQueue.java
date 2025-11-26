@@ -9,8 +9,9 @@ class GenDynQueue<T> implements IGenQ<T> {
 	}
 	//Реализация метода интерфейса put()
 	public void put(T obj) throws QueueFullException {
-		if(putloc==q.length) {
-//			T[] t = new T[q.length * 2]; Не компилируется char[]
+		if((putloc + 1) % q.length == getloc) {
+			int newSize = q.length * 2;
+			T[] t = (T[]) new Object[newSize]; 
 			for (int i=0; i < q.length; i++)
 				t[i] = q[i];
 			q = t;
