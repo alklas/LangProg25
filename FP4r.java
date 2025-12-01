@@ -32,14 +32,10 @@ class TCalc {
     	return 0;
     }	    
 }
-class FP4 {
-	public static void main(String[] args) {
-		TCalc list1 = new TCalc();
-		List<String> l1 = new ArrayList<>();
-		l1 = list1.addPerson(l1, "Ринат");
-		System.out.println("Размер чаевых для l1: " + list1.getTPercentage(l1));
-		List<String> l2 = l1;
-		l2 = list1.addPerson(l1, "Юрий");
-		System.out.println("Размер чаевых для l1: " + list1.getTPercentage(l2));
+class FP4r {
+	public static void main(String[] args] {
+
+
+
 	}
 }
